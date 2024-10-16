@@ -12,8 +12,11 @@ class GenerateSignalData:
     def __init__(self):
         self.frequency: float = 1,
         self.amplitude: float = 1,
+        self.voltage: float = 1
         self.sampling_rate: float = 10000,
         self.number_of_samples: int = 10000
+        # amplitude와 voltage 같은 역할 추후 수정하기
+        
               
     def generate_sine_wave(
         self,
@@ -40,6 +43,11 @@ class GenerateSignalData:
             Indicates a tuple containing the generated data and the phase
             of the sine wave after generation.
         """
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.sampling_rate =sampling_rate
+        self.number_of_samples = number_of_samples
+        
         duration_time = number_of_samples / sampling_rate
         duration_radians = duration_time * 2 * np.pi
         phase_out = (phase_in + duration_radians) % (2 * np.pi)
@@ -52,7 +60,13 @@ class GenerateSignalData:
         frequency,
         voltage,
         sampling_rate: int, 
-        duration = 1.0):
+        duration = 1.0
+    ):
+        
+        self.frequency = frequency
+        self.voltage = voltage
+        self.sampling_rate =sampling_rate
+        
         t = np.linspace(0, duration, int(sampling_rate * duration), endpoint=False)
         signal = (2 * voltage * np.abs(np.mod(t * frequency, 1.0)-0.5) - 0.5*voltage)*2
         return signal
@@ -64,6 +78,11 @@ class GenerateSignalData:
         sampling_rate: int,
         duration = 1.0,
     ):
+        
+        self.voltage = voltage
+        self.sampling_rate =sampling_rate
+        
+        
         step_size = duration / steps
         signal = np.repeat(np.linspace(-voltage, voltage,steps), int(step_size * sampling_rate))
         return signal
@@ -72,13 +91,20 @@ class GenerateSignalData:
         self,
         sampling_rate
     ):
+        
+        self.sampling_rate =sampling_rate
+        
         np.zeros(int(sampling_rate))
         return np.zeros(int(sampling_rate))
     
     def generate_constant(
         self,
         sampling_rate,
-        volatage
+        voltage: float
     ):
-        np.ones(int(sampling_rate)) * volatage
-        return np.ones(int(sampling_rate)) * volatage
+
+        self.voltage = voltage        
+        self.sampling_rate =sampling_rate
+        
+        np.ones(int(sampling_rate)) * voltage
+        return np.ones(int(sampling_rate)) * voltage

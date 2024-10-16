@@ -13,12 +13,14 @@ import time
 from GenerateSignalData import GenerateSignalData
 
 
-
+# main_variable이 필요할까...?
 def main_variable():
     """ nidaqmx 함수에 필요한 공통 변수를 정의."""
     buffer_size = 10000
     return buffer_size
 
+
+# DAQ로 할 작업을 작성 신호 생성, data 정보 얻기
 class DAQTasks(nidaqmx.Task):
     """신호의 입출력을 컨트롤하고, 다른 모듈에 사용될 기본 함수 정의."""
     
@@ -59,3 +61,15 @@ class DAQTasks(nidaqmx.Task):
         time.sleep(1)
         self.task.stop()
         self.task.close()
+    
+    # scan stop
+    def stop_signal(self):
+        self.task.stop()
+        self.task.close()
+        
+    # Data 수집
+    def data_collection(self):
+        """Data 수집을 위한 작업"""
+        self.task.ai_channels.add_ai_freq_voltage_chan()
+        self.task.timing.cfg_samp_clk_timing(rate=1000, sample_mode=AcquisitionType.CONTINUOUS)
+        self.task.start()
