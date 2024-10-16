@@ -14,18 +14,22 @@ import time                         # 시간을 다루는...시간과 관련된 
 import cv2                          # 파이썬으로 영상을 처리하기 위해
 import pyuff                        # UFF 파일 형식을 관리하기 위해
 import logging                      # 소프트웨어 실행시 이벤트(Debug, Error, Info, Warning, Critical) 정보를 출력
-import tkinter                      # python으로 GUI만들기
+import tkinter as tk                # python으로 GUI만들기
 
 # 이 시스템에서 사용을 위해 만든 패키지 import
 import DAQTasks
+import GUI
+import GenerateSignalData
 
 
 
 
-logging.basicConfig(level=logging.INFO) # 기본 로깅 설정, 로그 메시지의 출력 형식
-logger = logging.getLogger(__name__)
-
-class GalvoScanningSystem():
-    def __init__(self):
-        
-    def 
+#logging.basicConfig(level=logging.INFO) # 기본 로깅 설정, 로그 메시지의 출력 형식
+#logger = logging.getLogger(__name__)
+def galvo():
+    root = tk.Tk()
+    app = GUI.ScanningWindow(root)
+    root.mainloop()
+     
+if __name__ == "__main__":
+    galvo()
