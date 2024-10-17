@@ -25,4 +25,4 @@ class DataProcessor:
             필터링, 스무딩, fft(fast fourier transform 등)을 작성해서 추후에
             프로그램으로 정보를 어느 정도 가공을 해서 저장을 할 수 있게 만들자
         """
-        return data
+        return data    

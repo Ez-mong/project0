@@ -20,7 +20,7 @@ import tkinter as tk                # python으로 GUI만들기
 import DAQTasks
 import GUI
 import GenerateSignalData
-
+import Data
 
 
 

@@ -20,10 +20,10 @@ class GenerateSignalData:
               
     def generate_sine_wave(
         self,
-        frequency: float,
-        amplitude: float,
-        sampling_rate: float,
-        number_of_samples: int,
+        frequency: float = 1,
+        amplitude: float = 1,
+        sampling_rate: float = 1000,
+        number_of_samples: int = 1000,
         phase_in: float = 0.0,
     ) -> Tuple[numpy.typing.NDArray[numpy.double], float]:
         # '--> , :'은type hint(있어도 그만 없어도 그만, 대신 가독성이 높어짐,정적 분석 도구 지원, 코드 유지 보수 유리)
@@ -57,9 +57,9 @@ class GenerateSignalData:
     
     def generate_triangle(
         self,
-        frequency,
-        voltage,
-        sampling_rate: int, 
+        frequency = 1,
+        voltage = 1,
+        sampling_rate: int = 1000, 
         duration = 1.0
     ):
         
@@ -73,9 +73,9 @@ class GenerateSignalData:
     
     def generate_step(
         self,
-        steps,
-        voltage,
-        sampling_rate: int,
+        voltage:float = 1,
+        sampling_rate: int = 1000,
+        steps: int = 10,
         duration = 1.0,
     ):
         
@@ -89,7 +89,7 @@ class GenerateSignalData:
     
     def generate_zero(
         self,
-        sampling_rate
+        sampling_rate = 1000
     ):
         
         self.sampling_rate =sampling_rate
@@ -99,8 +99,8 @@ class GenerateSignalData:
     
     def generate_constant(
         self,
-        sampling_rate,
-        voltage: float
+        sampling_rate = 1000,
+        voltage: float = 1
     ):
 
         self.voltage = voltage        

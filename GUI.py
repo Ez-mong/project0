@@ -8,7 +8,7 @@ class ScanningWindow:
         self.root.geometry('1820x980')
         self.root.title("ScanningWindow")
         
-        self.DAQ = DAQTasks
+        self.DAQ = DAQTasks()
         
         self.xscan_voltage_lb = tk.Label(root, text = "X[V]")
         self.xscan_voltage_lb.pack(side="left", anchor="ne", padx = 10, pady = 10)

@@ -32,11 +32,12 @@ class DAQTasks(nidaqmx.Task):
     def __init__(self):
         # 상속받은 부모 클래스인 Task를 초기화
         nidaqmx.Task.__init__(self)
+        self.generate = GenerateSignalData()
     
     def generate_scan_signal(self):
         """스캔 신호 생성: 삼각파 및 계단파."""
-        self.x_signals = GenerateSignalData.generate_triangle() # 변수 조건 기입
-        self.y_signals = GenerateSignalData.generate_step()     # 변수 조건 기입
+        self.x_signals = self.generate.generate_triangle() # 변수 조건 기입
+        self.y_signals = self.generate.generate_step()     # 변수 조건 기입
 
         self.ao_channels.add_ao_voltage_chan("Dev1/ao0", min_val=-1.0, max_val=+1.0)
         self.ao_channels.add_ao_voltage_chan("Dev1/ao1", min_val=-1.0, max_val=+1.0)
@@ -51,8 +52,8 @@ class DAQTasks(nidaqmx.Task):
     
     def generate_posi_signal(self):
         """고정 신호 생성."""
-        self.x_signals = GenerateSignalData.generate_constant() # 변수 조건 기입
-        self.y_signals = GenerateSignalData.generate_constant() # 변수 조건 기입
+        self.x_signals = self.generate.generate_constant() # 변수 조건 기입
+        self.y_signals = self.generate.generate_constant() # 변수 조건 기입
 
         self.ao_channels.add_ao_voltage_chan("Dev1/ao0", min_val=-1.0, max_val=+1.0)
         self.ao_channels.add_ao_voltage_chan("Dev1/ao1", min_val=-1.0, max_val=+1.0)
@@ -61,9 +62,6 @@ class DAQTasks(nidaqmx.Task):
         data = np.vstack((self.x_signals, self.y_signals))
         self.write(data, auto_start=False)
         self.start()
-        time.sleep(1)
-        self.stop()
-        self.close()
     
     # scan stop
     def stop_signal(self):
