@@ -1,5 +1,6 @@
 import tkinter as tk
 from DAQTasks import DAQTasks
+from Data import DataProcessor
 
 class ScanningWindow:
     def __init__(self,root):
@@ -23,6 +24,13 @@ class ScanningWindow:
         self.scan_stop_bt = tk.Button(root, text = "STOP", command = self.stop_scan)
         self.scan_stop_bt.pack(side = "left",padx=10,pady=10)
         
+        
+        self.label = tk.Label(root, text="Status: Idle")
+        self.label.pack(pady=10)
+        
+        self.daq_task = DAQTasks()
+        self.data_processor = DataProcessor()
+        
     # Start Scanning
     def start_scan(self):
         self.DAQ.generate_scan_signal()
@@ -36,6 +44,10 @@ class ScanningWindow:
     # Locate Position
         
     # Data plot
-    
+    def show_data(self):
+        self.label.config(text = "Status: collecting Data...")
+        data = self.daq_task.data_collection()
+        self.data_processor.data_plot(data)
+        self.label.config(text="Status: Data Collection Completed")
     
     #
